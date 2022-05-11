@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "TrimmedWinUIApp (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "TrimmedWinUIApp (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
