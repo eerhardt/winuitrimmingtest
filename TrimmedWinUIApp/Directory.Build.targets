@@ -1,0 +1,15 @@
+<Project>
+
+  <PropertyGroup>
+    <!-- hack to allow certain Windows methods to work. e.g. WindowNative.GetWindowHandle -->
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+
+    <!-- hack to allow winui to work with PublishTrimmed=true -->
+    <IncludeGetCopyToOutputDirectoryItemsOutputGroup>false</IncludeGetCopyToOutputDirectoryItemsOutputGroup>
+  </PropertyGroup>
+
+  <Target Name="ValidateNoPublishTrimmed" BeforeTargets="PrepareForBuild">
+    <!-- hack to remove winui target -->
+  </Target>
+
+</Project>

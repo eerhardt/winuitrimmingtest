@@ -1114,7 +1114,7 @@
       <Output TaskParameter="TargetOutputs" ItemName="_BuiltProjectOutputGroupOutput"/>
     </CallTarget>
 
-    <ItemGroup Condition="'$(PublishReadyToRun)'!='true'">
+    <ItemGroup Condition="'$(PublishReadyToRun)'!='true' and '$(PublishTrimmed)'!='true'">
       <_PackagingOutputsUnexpanded Include="%(_BuiltProjectOutputGroupOutput.FinalOutputPath)">
         <TargetPath>%(_BuiltProjectOutputGroupOutput.TargetPath)</TargetPath>
         <OutputGroup>BuiltProjectOutputGroup</OutputGroup>
@@ -1122,8 +1122,8 @@
       </_PackagingOutputsUnexpanded>
     </ItemGroup>
 
-    <!-- Ignore .dll files when PublishReadyToRun is set to true, otherwise we will get payload duplicate errors -->
-    <ItemGroup Condition="'$(PublishReadyToRun)'=='true'">
+    <!-- Ignore .dll files when PublishReadyToRun/PublishTrimmed is set to true, otherwise we will get payload duplicate errors -->
+    <ItemGroup Condition="'$(PublishReadyToRun)'=='true' or '$(PublishTrimmed)'=='true'">
       <_PackagingOutputsUnexpanded Include="%(_BuiltProjectOutputGroupOutput.FinalOutputPath)" Condition="'%(Extension)'!='.dll'">
         <TargetPath>%(_BuiltProjectOutputGroupOutput.TargetPath)</TargetPath>
         <OutputGroup>BuiltProjectOutputGroup</OutputGroup>
@@ -1201,15 +1201,15 @@
       <Output TaskParameter="TargetOutputs" ItemName="_CopyLocalFilesOutputGroupOutput"/>
     </CallTarget>
 
-    <ItemGroup Condition="'$(PublishReadyToRun)' != 'true'">
+    <ItemGroup Condition="'$(PublishReadyToRun)' != 'true' and '$(PublishTrimmed)'!='true'">
       <_PackagingOutputsUnexpanded Include="@(_CopyLocalFilesOutputGroupOutput)" Condition="'%(Extension)'!='.pri'">
         <OutputGroup>CopyLocalFilesOutputGroup</OutputGroup>
         <ProjectName>$(ProjectName)</ProjectName>
       </_PackagingOutputsUnexpanded>
     </ItemGroup>
 
-    <!-- Ignore .dll files when PublishReadyToRun is set to true, otherwise we will get payload duplicate errors -->
-    <ItemGroup Condition="'$(PublishReadyToRun)' == 'true'">
+    <!-- Ignore .dll files when PublishReadyToRun/PublishTrimmed is set to true, otherwise we will get payload duplicate errors -->
+    <ItemGroup Condition="'$(PublishReadyToRun)' == 'true' or '$(PublishTrimmed)'=='true'">
       <_PackagingOutputsUnexpanded Include="@(_CopyLocalFilesOutputGroupOutput)" Condition="'%(Extension)'!='.pri' and '%(Extension)'!='.dll'">
         <OutputGroup>CopyLocalFilesOutputGroup</OutputGroup>
         <ProjectName>$(ProjectName)</ProjectName>
